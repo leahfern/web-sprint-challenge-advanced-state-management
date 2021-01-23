@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <div className="App">
         <nav className="navbar navbar-dark bg-primary">
-          <button className="navbar-brand">Smurf Village Database</button>
+          <a className="navbar-brand">Smurf Village Database</a>
         </nav>
         <main>
           <AddForm/>
