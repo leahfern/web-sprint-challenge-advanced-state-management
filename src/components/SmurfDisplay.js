@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchSmurfs } from "../actions/index";
+import Smurf from './Smurf';
 
 export class SmurfDisplay extends React.Component {
   componentDidMount() {
@@ -9,16 +10,11 @@ export class SmurfDisplay extends React.Component {
 
   render() {
     return (
-      <div>
-        {/* map through the smurfs, creating a div for each one. */}
+      <div className='smurfs'>
+        {/* map through the smurfs, creating a Smurf component for each one. */}
         {this.props.smurfs.map((smurf) => {
           return (
-            <div key={smurf.id}>
-              <h4>{smurf.name}</h4>
-              <p>Nickname: {smurf.nickname}</p>
-              <p>Position: {smurf.position}</p>
-              <p>Description: {smurf.description}</p>
-            </div>
+            <Smurf key={smurf.id} smurf={smurf}/>
           );
         })}
       </div>
