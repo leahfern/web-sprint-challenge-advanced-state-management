@@ -8,8 +8,10 @@ export class SmurfDisplay extends React.Component {
         this.props.fetchSmurfs();
     }
 
-    // componentDidUpdate() {
-    //     this.props.fetchSmurfs();
+    // componentDidUpdate(prevProps) {
+    //     if (prevProps.smurfs !== this.props.smurfs) {
+    //         this.props.fetchSmurfs();
+    //     }
     // }
 
     render() {

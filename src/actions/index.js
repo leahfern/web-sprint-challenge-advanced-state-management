@@ -9,17 +9,16 @@ export const FETCH_SMURFS_START = 'FETCH_SMURFS_START';
 export const FETCH_SMURFS_SUCCESS = 'FETCH_SMURFS_SUCCESS';
 export const FETCH_SMURFS_FAIL = 'FETCH_SMURFS_FAIL';
 
-export const addSmurfs = () => dispatch => {
+export const addSmurfs = (newSmurf) => (dispatch) => {
   // dispatch({ type: ADD_SMURFS_START});
-  console.log('addSmurfs is starting');
-  axios.post('http://localhost:3333/smurfs', {name: 'Leah', nickname: 'none', description: ''})
+  console.log('addSmurfs is starting', newSmurf);
+  axios.post('http://localhost:3333/smurfs', newSmurf)
     .then(res => {
       console.log(res.data);
       dispatch({ type: ADD_SMURFS_SUCCESS, payload: res.data})
     })
     .catch(err => {
-      console.log(err.message);
-      dispatch({ type: ADD_SMURFS_FAIL, payload: err})
+      dispatch({ type: ADD_SMURFS_FAIL, payload: err.response.data.Error})
     })
 
 }

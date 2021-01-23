@@ -5,6 +5,7 @@ import schema from '../validation/addFormSchema';
 import * as yup from 'yup';
 
 
+
 class AddForm extends React.Component {
     constructor() {
         super();
@@ -25,7 +26,13 @@ class AddForm extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        this.props.addSmurfs();
+        const newSmurf = {
+            name: this.state.formValues.name,
+            nickname: this.state.formValues.nickname,
+            position: this.state.formValues.position,
+            description: this.state.formValues.description,
+        }
+        this.props.addSmurfs(newSmurf);
     }
     
     handleChange = (e) => {
@@ -72,7 +79,13 @@ class AddForm extends React.Component {
 
                 </div>
 
-                <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error: </div>
+                <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error:
+                    {
+                        this.props.state.error
+                        ? ` ${this.props.state.error}`
+                        : ''
+                    }
+                </div>
                 <button>Submit Smurf</button>
             </form>
         </section>);
@@ -80,7 +93,7 @@ class AddForm extends React.Component {
 }
 
 const mapStateToProps = state => {
-    return {};
+    return { state };
   };
 
 export default connect(mapStateToProps, { addSmurfs })(AddForm);
