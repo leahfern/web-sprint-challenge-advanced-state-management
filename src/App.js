@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 import AddForm from './components/AddForm';
 import SmurfDisplay from './components/SmurfDisplay';
-import axios from 'axios';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
@@ -13,7 +12,7 @@ class App extends Component {
     return (
       <div className="App">
         <nav className="navbar navbar-dark bg-primary">
-          <a className="navbar-brand">Smurf Village Database</a>
+          <button className="navbar-brand">Smurf Village Database</button>
         </nav>
         <main>
           <AddForm/>
