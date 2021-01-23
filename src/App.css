@@ -26,9 +26,13 @@ section {
 }
 
 .card {
-  /* height: 100%;
-  min-width:250px; */
-  flex: 0 1 24%;
+  min-width:250px;
+  width: 45%;
+  padding: 2%;
+  margin: 2.5%;
+  text-align: center;
+  box-shadow: 5px 5px 5px #4ea4ff;
+  border: 1px solid #3597ff;
 }
 
 .card-title {
@@ -55,4 +59,9 @@ nav button:focus {
 }
 .hidden {
   display: none;
+}
+.smurfs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
