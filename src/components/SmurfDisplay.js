@@ -1,45 +1,38 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { fetchSmurfs } from '../actions/index';
+import React from "react";
+import { connect } from "react-redux";
+import { fetchSmurfs } from "../actions/index";
 
 export class SmurfDisplay extends React.Component {
+  componentDidMount() {
+    this.props.fetchSmurfs();
+  }
 
-    componentDidMount() {
-        this.props.fetchSmurfs();
-    }
-
-    // componentDidUpdate(prevProps) {
-    //     if (prevProps.smurfs !== this.props.smurfs) {
-    //         this.props.fetchSmurfs();
-    //     }
-    // }
-
-    render() {
-        
-        return(
-            <div>
-                {this.props.smurfs.map(smurf => {
-                    return (
-                        <div>
-                            <h4>{smurf.name}</h4>
-                            <p>Nickname: {smurf.nickname}</p>
-                            <p>Position: {smurf.position}</p>
-                            <p>Description: {smurf.description}</p>
-                        </div>
-                    )
-                })}
-            </div>)
-    }
+  render() {
+    return (
+      <div>
+        {/* map through the smurfs, creating a div for each one. */}
+        {this.props.smurfs.map((smurf) => {
+          return (
+            <div key={smurf.id}>
+              <h4>{smurf.name}</h4>
+              <p>Nickname: {smurf.nickname}</p>
+              <p>Position: {smurf.position}</p>
+              <p>Description: {smurf.description}</p>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
 }
 
-const mapStateToProps = state => {
-    return {
-      smurfs: state.smurfs
-    };
+const mapStateToProps = (state) => {
+  return {
+    smurfs: state.smurfs,
   };
-  
-export default connect(mapStateToProps, { fetchSmurfs })(SmurfDisplay);
+};
 
+export default connect(mapStateToProps, { fetchSmurfs })(SmurfDisplay);
 
 //Task List:
 //1. Import in all needed components and library methods.

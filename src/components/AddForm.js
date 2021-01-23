@@ -1,100 +1,108 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { addSmurfs } from '../actions';
-import schema from '../validation/addFormSchema';
-import * as yup from 'yup';
-
-
+import React from "react";
+import { connect } from "react-redux";
+import { addSmurfs } from "../actions";
 
 class AddForm extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            formValues: {
-                name: '',
-                position: '',
-                nickname: '',
-                description: ''
-              },
-            formErrors: {
-                name: '',
-                position: '',
-                nickname: '',
+  constructor() {
+    super();
+    /* form values local state */
+    this.state = {
+      formValues: {
+        name: "",
+        position: "",
+        nickname: "",
+        description: "",
+      },
+    };
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    //formatting a nice object to add to the server
+    const newSmurf = {
+      name: this.state.formValues.name,
+      nickname: this.state.formValues.nickname,
+      position: this.state.formValues.position,
+      description: this.state.formValues.description,
+    };
+    this.props.addSmurfs(newSmurf);
+  };
+
+  handleChange = (e) => {
+    /* linking form inputs to the formValues state. keeping state local because it's not needed by other components. */
+    this.setState({
+      formValues: {
+        ...this.state.formValues,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
+
+  render() {
+    return (
+      <section>
+        <h2>Add Smurf</h2>
+        <form onSubmit={this.handleSubmit}>
+          {/* form takes in `name`, `position`, and `nickname`, `description`.*/}
+
+          <div className="form-group">
+            <label htmlFor="name">Name:</label>
+            <br />
+            <input
+              onChange={this.handleChange}
+              name="name"
+              id="name"
+              value={this.state.formValues.name}
+            />
+
+            <label htmlFor="position">Position:</label>
+            <br />
+            <input
+              onChange={this.handleChange}
+              name="position"
+              id="position"
+              value={this.state.formValues.position}
+            />
+
+            <label htmlFor="nickname">Nickname:</label>
+            <br />
+            <input
+              onChange={this.handleChange}
+              name="nickname"
+              id="nickname"
+              value={this.state.formValues.nickname}
+            />
+
+            <label htmlFor="description">Description:</label>
+            <br />
+            <input
+              onChange={this.handleChange}
+              name="description"
+              id="description"
+              value={this.state.formValues.description}
+            />
+          </div>
+          <div
+            data-testid="errorAlert"
+            className= { !this.props.error ? 'alert alert-danger hidden' : 'alert alert-danger'}
+            role="alert"
+          >
+            Error:
+            {
+              /* conditional that posts error received from api */
+              this.props.error ? ` ${this.props.error}` : ""
             }
-        }
-    }
-
-    handleSubmit = e => {
-        e.preventDefault();
-        const newSmurf = {
-            name: this.state.formValues.name,
-            nickname: this.state.formValues.nickname,
-            position: this.state.formValues.position,
-            description: this.state.formValues.description,
-        }
-        this.props.addSmurfs(newSmurf);
-    }
-    
-    handleChange = (e) => {
-
-        // yup
-        //     .reach(schema, e.target.name)
-        //     .validate(e.target.value)
-        //     .then(() => this.setState({
-        //         ...this.state, {
-        //             ...formErrors, [e.target.name]: ''
-        //         }
-        //     }))
-        //     .catch(err => setFormErrors(
-        //     {...formErrors, [e.target.name]: err.errors[0]}
-        //     ))
-
-        this.setState({
-            formValues: {
-                ...this.state.formValues,
-                [e.target.name]: e.target.value
-            }
-        })
-    }
-
-
-    render() {
-        return(<section>
-            <h2>Add Smurf</h2>
-            <form onSubmit={this.handleSubmit}>
-                {/* must take in `name`, `position`, and `nickname`, `description`.*/}
-
-                <div className="form-group">
-                <label htmlFor="name">Name:</label><br/>
-                    <input onChange={this.handleChange} name="name" id="name" value={this.state.formValues.name} />
-
-                    <label htmlFor="position">Position:</label><br/>
-                    <input onChange={this.handleChange} name="position" id="position" value={this.state.formValues.position}/>
-                    
-                    <label htmlFor="nickname">Nickname:</label><br/>
-                    <input onChange={this.handleChange} name="nickname" id="nickname" value={this.state.formValues.nickname}/>
-
-                    <label htmlFor="description">Description:</label><br/>
-                    <input onChange={this.handleChange} name="description" id="description" value={this.state.formValues.description}/>
-
-                </div>
-
-                <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error:
-                    {
-                        this.props.state.error
-                        ? ` ${this.props.state.error}`
-                        : ''
-                    }
-                </div>
-                <button>Submit Smurf</button>
-            </form>
-        </section>);
-    }
+          </div>
+          <button>Submit Smurf</button>
+        </form>
+      </section>
+    );
+  }
 }
 
-const mapStateToProps = state => {
-    return { state };
-  };
+const mapStateToProps = (state) => {
+  return { error: state.error };
+};
 
 export default connect(mapStateToProps, { addSmurfs })(AddForm);
 //Task List:

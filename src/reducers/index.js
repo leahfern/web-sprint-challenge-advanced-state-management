@@ -10,7 +10,6 @@ const initialState = {
 const reducer = (state = initialState, action )=>{
   switch (action.type) {
     case(ADD_SMURFS_START):
-      console.log('Add smurf is starting');
       return({
         ...state,
         error: '',
